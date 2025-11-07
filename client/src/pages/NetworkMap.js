@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback, useRef } from "react";
-import axios from "../components/axios"; // Adjust the path as necessary
+import axios from "../components/axios";
 import AddLocationModal from "../components/AddLocationModal";
 import NetworkAnalytics from "../components/NetworkAnalytics";
 import AdvancedFilters from "../components/AdvancedFilters";
@@ -83,7 +83,6 @@ const NetworkMap = () => {
       const length = turf.length(line, { units: "meters" });
       console.log("Route length:", length, "ms");
 
-      // Store markers in case you want to remove later
       const interval = 1;
       const markers = [];
       const updatedGeoJSON = structuredClone(geojson);
@@ -114,7 +113,6 @@ const NetworkMap = () => {
         markers.push(marker);
       });
 
-      // ✅ Attach cancel/save handlers
       if (onCancel) {
         onCancel(async () => {
           const result = await Swal.fire({
@@ -192,16 +190,6 @@ const NetworkMap = () => {
     const popupDiv = document.createElement("div");
     popupDiv.className =
       "location-popup hidden absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 bg-white p-3 rounded shadow-lg border z-10 w-64";
-    // ${
-    //   location.image
-    //     ? `<img src="${location.image}" alt="Location" class="w-full h-32 object-cover rounded mb-2" />`
-    //     : ""
-    // }
-    // ${
-    //   location.image2
-    //     ? `<img src="${location.image2}" alt="Location" class="w-full h-32 object-cover rounded mb-2" />`
-    //     : ""
-    // }
     popupDiv.innerHTML = `
   <div class="max-w-xs bg-white rounded-xl shadow-2xl border border-gray-100 overflow-hidden">
     <!-- Header with gradient background -->
@@ -1217,8 +1205,6 @@ const NetworkMap = () => {
     <div>
       <div className="relative">
         <MapContainer className="w-full h-[600px]" />
-
-        {/* 👇 Toggle Button - Top Right */}
         <div className="absolute top-4 right-4 z-10">
           <button
             onClick={toggleRoutes}
@@ -1248,12 +1234,6 @@ const NetworkMap = () => {
         </div>
       </div>
 
-      <NetworkAnalytics
-        locations={filteredLocations}
-        serviceTypes={serviceTypes}
-        services={services}
-      />
-
       <NetworkExport
         locations={filteredLocations}
         services={services}
@@ -1266,87 +1246,6 @@ const NetworkMap = () => {
         coordinates={clickedCoordinates}
         onLocationCreated={handleLocationCreated}
       />
-
-      <div className="card">
-        <div className="card-header">
-          <h3 className="card-title">
-            Network Locations ({filteredLocations.length})
-          </h3>
-        </div>
-
-        {filteredLocations.length > 0 ? (
-          <table className="table">
-            <thead>
-              <tr>
-                <th>Service</th>
-                <th>Type</th>
-                <th>Coordinates</th>
-                <th>Distance from Hub</th>
-                <th>Notes</th>
-                <th>Created</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredLocations.map((location) => (
-                <tr key={location._id}>
-                  <td>{location.serviceName?.name || "N/A"}</td>
-                  <td>
-                    <div
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "8px",
-                      }}
-                    >
-                      <span
-                        style={{
-                          fontSize: "16px",
-                          padding: "4px 8px",
-                          borderRadius: "4px",
-                          backgroundColor:
-                            location.serviceType?.colorForMarking || "#3498db",
-                          color: "white",
-                        }}
-                      >
-                        {location.serviceType?.icon}
-                      </span>
-                      {location.serviceType?.name || "N/A"}
-                    </div>
-                  </td>
-                  <td>
-                    <div style={{ fontSize: "12px" }}>
-                      <div>Lat: {location.coordinates.latitude.toFixed(6)}</div>
-                      <div>
-                        Lng: {location.coordinates.longitude.toFixed(6)}
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    <span style={{ fontWeight: "bold", color: "#2c3e50" }}>
-                      {location.distanceFromCentralHub}m
-                    </span>
-                  </td>
-                  <td
-                    style={{
-                      maxWidth: "200px",
-                      overflow: "hidden",
-                      textOverflow: "ellipsis",
-                    }}
-                  >
-                    {location.notes || "No notes"}
-                  </td>
-                  <td>{new Date(location.createdAt).toLocaleDateString()}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        ) : (
-          <div style={{ textAlign: "center", padding: "40px", color: "#666" }}>
-            No locations match your current filters. Try adjusting your search
-            criteria.
-          </div>
-        )}
-      </div>
     </div>
   );
 };
