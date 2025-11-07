@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import axios from "../components/axios"; // Adjust the path as necessary
 import { useNavigate } from "react-router-dom";
 import NetworkAnalytics from "../components/NetworkAnalytics";
@@ -17,9 +17,15 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
+  const ref = useRef(null);
+
   useEffect(() => {
     fetchDashboardData();
   }, []);
+
+  useEffect(() => {
+    ref.current = stats;
+  }, [stats]);
 
   const fetchDashboardData = async () => {
     try {
@@ -70,7 +76,7 @@ const Dashboard = () => {
               Total Locations
             </h3>
             <p style={{ margin: 0, fontSize: "32px", fontWeight: "bold" }}>
-              {stats.totalLocations}
+              {ref.current.totalLocations}
             </p>
           </div>
 
