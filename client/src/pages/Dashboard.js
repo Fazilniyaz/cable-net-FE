@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import axios from "../components/axios"; // Adjust the path as necessary
 import { useNavigate } from "react-router-dom";
 import NetworkAnalytics from "../components/NetworkAnalytics";
+import CableNetLoader from "../components/Loader";
 
 const Dashboard = () => {
   const [stats, setStats] = useState({
@@ -42,7 +43,7 @@ const Dashboard = () => {
   };
 
   if (loading) {
-    return <div className="loading">Loading dashboard...</div>;
+    return <CableNetLoader />;
   }
 
   return (

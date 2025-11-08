@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import axios from "../components/axios";
 import { DataTable } from "../components/DataTable";
 import useUserStore from "../store/adminStore";
+import CableNetLoader from "../components/Loader";
 
 const Locations = () => {
   const [locations, setLocations] = useState([]);
@@ -341,10 +342,11 @@ const Locations = () => {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center h-screen bg-gray-100 text-gray-600">
-        <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-blue-500"></div>
-        <p className="ml-4 text-xl">Loading locations...</p>
-      </div>
+      // <div className="flex items-center justify-center h-screen bg-gray-100 text-gray-600">
+      //   <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-blue-500"></div>
+      //   <p className="ml-4 text-xl">Loading locations...</p>
+      // </div>
+      <CableNetLoader />
     );
   }
 
