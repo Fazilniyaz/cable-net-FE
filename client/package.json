@@ -38,6 +38,7 @@
       "react-app/jest"
     ]
   },
+   "build:vercel": "CI=false npm run build",
   "browserslist": {
     "production": [
       ">0.2%",
