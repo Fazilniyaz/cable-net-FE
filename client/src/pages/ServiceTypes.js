@@ -1,9 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import axios from "../components/axios";
+import axios from "../components/axios"; // Adjust the path as necessary
 import { DataTable } from "../components/DataTable";
-import CableNetLoader from "../components/Loader";
 
 const ServiceTypes = () => {
   const [serviceTypes, setServiceTypes] = useState([]);
@@ -407,7 +406,7 @@ const ServiceTypes = () => {
   ];
 
   if (loading) {
-    return <CableNetLoader />;
+    return <div className="loading">Loading service types...</div>;
   }
 
   return (
