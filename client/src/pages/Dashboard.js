@@ -42,10 +42,6 @@ const Dashboard = () => {
     }
   };
 
-  // if (loading) {
-  //   return <div className="loading">Loading dashboard...</div>;
-  // }
-
   if (loading) {
     return <CableNetLoader />;
   }
